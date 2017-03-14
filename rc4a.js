@@ -1,4 +1,4 @@
-(() => {
+((window) => {
 	
 function generateSBlock(key) {
 	const S = Array.from(Array(256), (_, i) => i);
@@ -13,7 +13,7 @@ function generateSBlock(key) {
 	return S;
 }
 
-function r4ca(text, key) {
+function rc4a(text, key) {
 	const S1 = generateSBlock(key);
 	const S2 = generateSBlock(S1.join(""));
 
@@ -67,8 +67,8 @@ function swapTest() {
 function test() {
 	const text = "abcdefghijklmnopqrstuvwxyz";
 	const key = "some secret key";
-	const encrypted = r4ca(text, key);
-	const decrypted = r4ca(encrypted, key);
+	const encrypted = rc4a(text, key);
+	const decrypted = rc4a(encrypted, key);
 
 	console.log("============ Tests ==============");
 	console.log(`Swap function: ${swapTest()}`);
@@ -79,8 +79,6 @@ function test() {
 
 test();
 
-const a = [1, 2];
-swap(a, 0, 1);
-console.log(a);
+window.rc4a = rc4a;
 
-})();
+})(window);
